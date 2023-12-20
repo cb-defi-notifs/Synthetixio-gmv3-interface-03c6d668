@@ -12,7 +12,9 @@ import { SynthetixIcon, SynthetixLogo } from 'components/Wallet/WalletComponents
 
 const injected = injectedModule();
 const coinbaseWalletSdk = coinbaseWalletModule({ darkMode: true });
-const walletConnect = walletConnectModule();
+const walletConnect = walletConnectModule({
+	projectId: `${process.env.NEXT_PUBLIC_WC_PROJECT_ID}`,
+});
 const ledger = ledgerModule() as any;
 const trezor = trezorModule({ email: 'info@synthetix.io', appUrl: 'https://www.synthetix.io' });
 const portis = portisModule({ apiKey: `${process.env.NEXT_PUBLIC_PORTIS_APP_ID}` });
