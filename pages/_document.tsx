@@ -11,6 +11,7 @@ export default class MyDocument extends Document {
 			<Html className="no-touch dark ui-dark">
 				<Head>
 					<link rel="manifest" href="/manifest.json" />
+					<link rel="manifest" href="/synthetix.io.txt" />
 				</Head>
 				<body>
 					<Main />
