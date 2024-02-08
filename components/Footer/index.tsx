@@ -39,7 +39,6 @@ export default function Footer() {
 						</Link>
 					))}
 				</div>
-
 				<span className="xs:hidden block gt-america-font tg-caption opacity-60 text-white uppercase mb-4">
 					{t('footer.copyright')}
 				</span>
@@ -48,7 +47,12 @@ export default function Footer() {
 					{t('footer.copyright')}
 				</span>
 				<Card className="flex gap-4 items-center py-3" wrapperClassName="rounded-full">
-					<Link href="https://discord.com/invite/AEdUHzt" passHref rel="noreferrer" target="_blank">
+					<Link
+						href="https://discord.com/invite/ptfNSByB8P"
+						passHref
+						rel="noreferrer"
+						target="_blank"
+					>
 						<DiscordIcon fill="white" />
 					</Link>
 					<Link href="https://twitter.com/synthetix_io" passHref rel="noreferrer" target="_blank">
