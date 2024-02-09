@@ -48,7 +48,7 @@ export default function Footer() {
 				</span>
 				<Card className="flex gap-4 items-center py-3" wrapperClassName="rounded-full">
 					<Link
-						href="https://discord.com/invite/ptfNSByB8P"
+						href="https://discord.com/invite/KVeCZe6ahW"
 						passHref
 						rel="noreferrer"
 						target="_blank"

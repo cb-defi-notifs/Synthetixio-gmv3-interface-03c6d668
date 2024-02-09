@@ -116,7 +116,7 @@ export const TermsModal = ({ defaultOpen = true }: TermsModalProps) => {
 									<Link
 										color="cyan.500"
 										target="_blank"
-										href="https://discord.com/invite/ptfNSByB8P"
+										href="https://discord.com/invite/KVeCZe6ahW"
 										_focusVisible={{ outline: 'none' }}
 									>
 										Synthetix Discord
