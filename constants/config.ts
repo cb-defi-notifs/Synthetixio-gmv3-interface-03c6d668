@@ -1,8 +1,9 @@
-export const COUNCIL_SLUGS = ['spartan', 'ambassador', 'treasury'];
+export const COUNCIL_SLUGS = ['spartan', 'grants', 'ambassador', 'treasury'];
 
 export enum DeployedModules {
 	SPARTAN_COUNCIL = 'spartan council',
 	AMBASSADOR_COUNCIL = 'ambassador council',
+	GRANTS_COUNCIL = 'grants council',
 	TREASURY_COUNCIL = 'treasury council',
 }
 
@@ -21,6 +22,13 @@ export const COUNCILS_DICTIONARY: CouncilsDictionaryType[] = [
 		abbreviation: 'sc',
 		image: '/logos/spartan-council.svg',
 		module: DeployedModules.SPARTAN_COUNCIL,
+	},
+	{
+		slug: 'grants',
+		label: 'Grants',
+		abbreviation: 'gc',
+		image: '/logos/grants-council.svg',
+		module: DeployedModules.GRANTS_COUNCIL,
 	},
 	{
 		slug: 'ambassador',

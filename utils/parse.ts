@@ -11,6 +11,9 @@ export const parseQuery = (
 		case 'spartan':
 		case 0:
 			return { index: 0, module: DeployedModules.SPARTAN_COUNCIL, name: 'spartan' };
+		case 'grants':
+		case 1:
+			return { index: 1, module: DeployedModules.GRANTS_COUNCIL, name: 'grants' };
 		case 'ambassador':
 		case 2:
 			return { index: 2, module: DeployedModules.AMBASSADOR_COUNCIL, name: 'ambassador' };

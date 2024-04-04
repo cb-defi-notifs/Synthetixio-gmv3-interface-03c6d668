@@ -20,10 +20,11 @@ const Councils: NextPage = () => {
 	const [activeCouncil, setActiveCouncil] = useState(parseQuery(query?.council?.toString()).name);
 	const { t } = useTranslation();
 	const { data: spartan } = useCouncilMembersQuery(DeployedModules.SPARTAN_COUNCIL);
+	const { data: grants } = useCouncilMembersQuery(DeployedModules.GRANTS_COUNCIL);
 	const { data: ambassador } = useCouncilMembersQuery(DeployedModules.AMBASSADOR_COUNCIL);
 	const { data: treasury } = useCouncilMembersQuery(DeployedModules.TREASURY_COUNCIL);
 
-	const allMembers = [spartan, ambassador, treasury];
+	const allMembers = [spartan, grants, ambassador, treasury];
 
 	const moduleInstance = COUNCILS_DICTIONARY.find((item) => item.slug === activeCouncil)?.module;
 	return (
@@ -32,14 +33,14 @@ const Councils: NextPage = () => {
 				<title>Synthetix | Governance V3</title>
 			</Head>
 			<Main>
-				<div className="container flex flex-col p-3">
-					<div className="relative w-full">
+				<div className="flex flex-col p-3 container">
+					<div className="w-full relative">
 						<BackButton />
-						<h1 className="tg-title-h1 ml-auto p-12 text-center">{t('councils.headline')}</h1>
+						<h1 className="tg-title-h1 text-center p-12 ml-auto">{t('councils.headline')}</h1>
 					</div>
 					<Tabs
 						initial={activeCouncil}
-						className="no-scrollbar mb-2 justify-start lg:mx-auto"
+						className="mb-2 justify-start lg:mx-auto no-scrollbar"
 						tabClassName="min-w-fit"
 						items={COUNCILS_DICTIONARY.map((council, index) => ({
 							id: council.slug,
@@ -52,15 +53,15 @@ const Councils: NextPage = () => {
 								</div>
 							),
 							content: !allMembers.length ? (
-								<Loader className="mx-auto mt-8 w-fit" />
+								<Loader className="mt-8 mx-auto w-fit" />
 							) : (
 								<>
-									<div className="mx-auto mt-4 mb-3 max-w-3xl p-6">
-										<span className="tg-content block text-center">
+									<div className="mt-4 mb-3 p-6 max-w-3xl mx-auto">
+										<span className="tg-content text-center block">
 											{t(`councils.tabs.explanations.${council.abbreviation}.subline`)}
 										</span>
-										<div className="mt-4 flex flex-wrap justify-center md:flex-nowrap">
-											<div className="mx-8 my-2 flex w-full items-center justify-center rounded border border-gray-500 p-2">
+										<div className="flex justify-center flex-wrap mt-4 md:flex-nowrap">
+											<div className="border border-gray-500 rounded p-2 flex justify-center items-center w-full mx-8 my-2">
 												<span className="tg-caption">
 													{t(`councils.tabs.explanations.${council.abbreviation}.election`)}
 												</span>
@@ -71,7 +72,7 @@ const Councils: NextPage = () => {
 													})}
 												</span>
 											</div>
-											<div className="mx-8 my-2 flex w-full items-center justify-center rounded border border-gray-500 p-2">
+											<div className="border border-gray-500 rounded p-2 flex justify-center items-center w-full mx-8 my-2">
 												<span className="tg-caption">
 													{t(`councils.tabs.explanations.${council.abbreviation}.stipends`)}
 												</span>
@@ -84,7 +85,7 @@ const Councils: NextPage = () => {
 											</div>
 										</div>
 									</div>
-									<div className="flex w-full flex-wrap justify-center">
+									<div className="flex flex-wrap justify-center w-full">
 										{allMembers.length &&
 											allMembers[index]?.map((walletAddress) => (
 												<MemberCard

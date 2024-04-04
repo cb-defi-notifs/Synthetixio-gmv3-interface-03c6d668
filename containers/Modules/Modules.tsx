@@ -1,7 +1,12 @@
 import { ethers } from 'ethers';
 import ElectionModuleABI from 'contracts/ElectionModule.json';
 import { useConnectorContext } from 'containers/Connector';
-import { ambassadorCouncil, spartanCouncil, treasuryCouncil } from 'constants/addresses';
+import {
+	ambassadorCouncil,
+	grantsCouncil,
+	spartanCouncil,
+	treasuryCouncil,
+} from 'constants/addresses';
 import {
 	createContext,
 	useContext,
@@ -60,6 +65,13 @@ export const ModulesProvider: FunctionComponent<PropsWithChildren> = ({ children
 		modules[DeployedModules.AMBASSADOR_COUNCIL] = {
 			address: ambassadorCouncil,
 			contract: AmbassadorCouncilModule,
+		};
+
+		const GrantsCouncilModule = new ethers.Contract(grantsCouncil, ElectionModuleABI.abi, provider);
+
+		modules[DeployedModules.GRANTS_COUNCIL] = {
+			address: grantsCouncil,
+			contract: GrantsCouncilModule,
 		};
 
 		const TreasuryCouncilModule = new ethers.Contract(

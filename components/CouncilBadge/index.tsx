@@ -10,6 +10,7 @@ interface Props {
 
 const councilVariant = {
 	[DeployedModules.SPARTAN_COUNCIL]: 'blue',
+	[DeployedModules.GRANTS_COUNCIL]: 'success',
 	[DeployedModules.AMBASSADOR_COUNCIL]: 'orange',
 	[DeployedModules.TREASURY_COUNCIL]: 'yellow',
 };

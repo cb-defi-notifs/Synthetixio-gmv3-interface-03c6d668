@@ -53,26 +53,33 @@ export function useGetCurrentVoteStateQuery(walletAddress: string) {
 	return useQuery(
 		['getCurrentVoteStateQuery', walletAddress],
 		async () => {
-			const [spartanVoteDetails, ambassadorVoteDetails, treasuryVoteDetails] = await Promise.all([
-				getVoteDetails(
-					governanceModules[DeployedModules.SPARTAN_COUNCIL]?.contract,
-					DeployedModules.SPARTAN_COUNCIL,
-					walletAddress
-				),
-				getVoteDetails(
-					governanceModules[DeployedModules.AMBASSADOR_COUNCIL]?.contract,
-					DeployedModules.AMBASSADOR_COUNCIL,
-					walletAddress
-				),
-				getVoteDetails(
-					governanceModules[DeployedModules.TREASURY_COUNCIL]?.contract,
-					DeployedModules.TREASURY_COUNCIL,
-					walletAddress
-				),
-			]);
+			const [spartanVoteDetails, grantsVoteDetails, ambassadorVoteDetails, treasuryVoteDetails] =
+				await Promise.all([
+					getVoteDetails(
+						governanceModules[DeployedModules.SPARTAN_COUNCIL]?.contract,
+						DeployedModules.SPARTAN_COUNCIL,
+						walletAddress
+					),
+					getVoteDetails(
+						governanceModules[DeployedModules.GRANTS_COUNCIL]?.contract,
+						DeployedModules.GRANTS_COUNCIL,
+						walletAddress
+					),
+					getVoteDetails(
+						governanceModules[DeployedModules.AMBASSADOR_COUNCIL]?.contract,
+						DeployedModules.AMBASSADOR_COUNCIL,
+						walletAddress
+					),
+					getVoteDetails(
+						governanceModules[DeployedModules.TREASURY_COUNCIL]?.contract,
+						DeployedModules.TREASURY_COUNCIL,
+						walletAddress
+					),
+				]);
 
 			return {
 				spartan: spartanVoteDetails,
+				grants: grantsVoteDetails,
 				ambassador: ambassadorVoteDetails,
 				treasury: treasuryVoteDetails,
 			};

@@ -16,16 +16,17 @@ export default function CouncilsCarousel({ withoutAllMembers }: { withoutAllMemb
 
 	const isMobile = useIsMobile();
 	const { data: spartan } = useCouncilMembersQuery(DeployedModules.SPARTAN_COUNCIL);
+	const { data: grants } = useCouncilMembersQuery(DeployedModules.GRANTS_COUNCIL);
 	const { data: ambassador } = useCouncilMembersQuery(DeployedModules.AMBASSADOR_COUNCIL);
 	const { data: treasury } = useCouncilMembersQuery(DeployedModules.TREASURY_COUNCIL);
 
-	if (!spartan && !ambassador && !treasury) {
+	if (!spartan && !grants && !ambassador && !treasury) {
 		return null;
 	}
-	if (spartan && ambassador && treasury) {
+	if (spartan && grants && ambassador && treasury) {
 		const allMembers = withoutAllMembers
-			? [spartan, ambassador, treasury]
-			: [spartan.concat(ambassador, treasury), spartan, ambassador, treasury];
+			? [spartan, grants, ambassador, treasury]
+			: [spartan.concat(grants, ambassador, treasury), spartan, grants, ambassador, treasury];
 
 		const getTabItems = () => {
 			return withoutAllMembers
@@ -44,7 +45,7 @@ export default function CouncilsCarousel({ withoutAllMembers }: { withoutAllMemb
 								members={allMembers[index] || []}
 							/>
 						),
-					}))
+				  }))
 				: [
 						{
 							id: 'all-members',
@@ -74,24 +75,24 @@ export default function CouncilsCarousel({ withoutAllMembers }: { withoutAllMemb
 								/>
 							),
 						})),
-					];
+				  ];
 		};
 
 		return (
 			<div
-				className={clsx('relative mt-4 flex flex-col', {
+				className={clsx('mt-4 flex flex-col relative', {
 					container: !isMobile,
 				})}
 			>
 				<Tabs
-					className="hide-scrollbar mb-4 justify-start lg:mx-auto"
+					className="mb-4 justify-start lg:mx-auto hide-scrollbar"
 					contentClassName="xs:max-w-[90vw] w-full mx-auto"
 					initial={activeTab}
 					items={getTabItems()}
 					onChange={(id) => setActiveTab(String(id))}
 				/>
 
-				<div className="absolute right-0 hidden lg:flex">
+				<div className="hidden lg:flex absolute right-0">
 					<IconButton isActive={listView} onClick={() => setListView(true)} size="sm">
 						<Icon name="List" className="text-primary" />
 					</IconButton>
