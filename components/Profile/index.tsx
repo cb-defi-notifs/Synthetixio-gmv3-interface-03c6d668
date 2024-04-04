@@ -32,8 +32,8 @@ export default function ProfileSection({ walletAddress }: { walletAddress: strin
 	const councilMembersQuery = useGetMemberCouncilNameQuery(walletAddress);
 	const periodsData = useCurrentPeriods();
 
-	const { spartan, ambassador, treasury } = useIsNominatedCouncils(walletAddress);
-	const councilNomination = [spartan.data, ambassador.data, treasury.data];
+	const { spartan, grants, ambassador, treasury } = useIsNominatedCouncils(walletAddress);
+	const councilNomination = [spartan.data, grants.data, ambassador.data, treasury.data];
 
 	const isNominatedFor = COUNCILS_DICTIONARY.map((council, index) => ({
 		nominated: councilNomination && Array.isArray(councilNomination) && councilNomination[index],
@@ -64,21 +64,21 @@ export default function ProfileSection({ walletAddress }: { walletAddress: strin
 		};
 
 		return (
-			<div className="align-center flex flex-col pt-12 md:items-center">
+			<div className="flex flex-col md:items-center align-center pt-12">
 				<div
-					className={clsx('flex h-full w-full flex-col items-center bg-center bg-no-repeat', {
+					className={clsx('w-full h-full bg-center bg-no-repeat flex flex-col items-center', {
 						'bg-[url(/images/ring-orange.svg)]': isOwnCard,
 						'bg-[url(/images/ring.svg)]': !isOwnCard,
 					})}
 				>
 					<Avatar scale={10} url={pfpThumbnailUrl} walletAddress={walletAddress} />
 					{councilMembersQuery.data && (
-						<Badge variant="success" className="tg-caption-sm mt-3 max-w-[150px] uppercase">
+						<Badge variant="success" className="mt-3 max-w-[150px] uppercase tg-caption-sm">
 							{t('profiles.council', { council: councilMembersQuery.data })}
 						</Badge>
 					)}
-					<div className="flex flex-col items-center justify-between p-3">
-						<div className="mt-3 flex items-center">
+					<div className="flex flex-col justify-between items-center p-3">
+						<div className="flex items-center mt-3">
 							<h4 className="tg-title-h4 mr-3">
 								{username || ensName || truncateAddress(walletAddress)}
 							</h4>
@@ -96,7 +96,7 @@ export default function ProfileSection({ walletAddress }: { walletAddress: strin
 									{twitter && urlIsCorrect(twitter, 'https://twitter.com') && (
 										<ExternalLink
 											link={twitter}
-											className="rounded-none hover:bg-navy-dark-1"
+											className="hover:bg-navy-dark-1 rounded-none"
 											text="Twitter"
 											withoutIcon
 										/>
@@ -105,7 +105,7 @@ export default function ProfileSection({ walletAddress }: { walletAddress: strin
 									{address && (
 										<ExternalLink
 											link={`https://optimistic.etherscan.io/address/${address}`}
-											className="rounded-none hover:bg-navy-dark-1"
+											className="hover:bg-navy-dark-1 rounded-none"
 											text="Etherscan"
 											withoutIcon
 										/>
@@ -122,12 +122,12 @@ export default function ProfileSection({ walletAddress }: { walletAddress: strin
 							<ProfileForm userProfile={userDetailsQuery.data} />
 						</Dialog>
 					</div>
-					<p className="tg-body max-w-[1000px] py-8 text-center">{about}</p>
+					<p className="tg-body py-8 text-center max-w-[1000px]">{about}</p>
 				</div>
 				<div className="container">
 					{isOwnCard && !!isNominatedFor?.length && (
-						<div className="w-full p-2">
-							<div className="flex w-full flex-col rounded-lg border border-gray-800 bg-dark-blue p-4 md:p-8 md:pb-4">
+						<div className="p-2 w-full">
+							<div className="bg-dark-blue w-full border border-gray-800 flex flex-col md:p-8 md:pb-4 rounded-lg p-4">
 								<div className="flex flex-col">
 									<div className="flex w-full items-center gap-2">
 										{calculatePercentage() === '100%' ? (
@@ -146,13 +146,13 @@ export default function ProfileSection({ walletAddress }: { walletAddress: strin
 													percentage: calculatePercentage(),
 												})}
 											</h4>
-											<span className="tg-content pt-1 text-gray-500">
+											<span className="tg-content text-gray-500 pt-1">
 												{t('profiles.completion-card.subline')}
 											</span>
 										</div>
 									</div>
-									<div className="flex w-full flex-wrap items-center justify-center lg:flex-nowrap">
-										<div className="m-2 flex h-[74px] w-full max-w-[210px] items-center gap-2 rounded border border-gray-500 p-2 py-4 md:my-6 md:mr-6">
+									<div className="flex items-center w-full flex-wrap lg:flex-nowrap justify-center">
+										<div className="w-full md:mr-6 md:my-6 m-2 border-gray-500 flex border rounded p-2 py-4 items-center max-w-[210px] gap-2 h-[74px]">
 											<Image src="/images/profile.svg" width={24} height={24} alt="pitch" />
 											<h6 className="tg-title-h6 mr-auto">{t('profiles.completion-card.pitch')}</h6>
 											{delegationPitch ? (
@@ -163,7 +163,7 @@ export default function ProfileSection({ walletAddress }: { walletAddress: strin
 												</IconButton>
 											)}
 										</div>
-										<div className="m-2 flex h-[74px] w-full max-w-[210px] items-center gap-2 rounded border border-gray-500 p-2 py-4 md:my-6 md:mr-6">
+										<div className="w-full md:mr-6 md:my-6 m-2 border-gray-500 flex border rounded p-2 py-4 gap-2 items-center max-w-[210px] h-[74px]">
 											<Image src="/images/discord.svg" width={24} height={24} alt="discord" />
 											<h6 className="tg-title-h6 mr-auto">
 												{t('profiles.completion-card.discord')}
@@ -176,7 +176,7 @@ export default function ProfileSection({ walletAddress }: { walletAddress: strin
 												</IconButton>
 											)}
 										</div>
-										<div className="m-2 flex h-[74px] w-full max-w-[210px] items-center gap-2 rounded border border-gray-500 p-2 py-4 md:my-6 md:mr-6">
+										<div className="w-full md:mr-6 md:my-6 m-2 border-gray-500 flex border rounded p-2 py-4 gap-2 items-center max-w-[210px] h-[74px]">
 											<Image src="/images/twitter.svg" width={24} height={24} alt="twitter" />
 											<h6 className="tg-title-h6 mr-auto">
 												{t('profiles.completion-card.twitter')}
@@ -192,7 +192,7 @@ export default function ProfileSection({ walletAddress }: { walletAddress: strin
 										<Button
 											variant="outline"
 											size="md"
-											className="m-2 max-w-[180px]"
+											className="max-w-[180px] m-2"
 											onClick={() => {
 												if (isNominatedFor?.length) {
 													setContent(
@@ -212,9 +212,9 @@ export default function ProfileSection({ walletAddress }: { walletAddress: strin
 							</div>
 						</div>
 					)}
-					<div className="mx-auto mb-6 flex w-full max-w-[1000px] flex-col p-2">
+					<div className="flex flex-col mb-6 w-full p-2 max-w-[1000px] mx-auto">
 						<h4 className="tg-title-h4 text-start my-2">{t('profiles.subheadline')}</h4>
-						<div className="relative flex w-full flex-col items-center">
+						<div className="relative flex flex-col items-center w-full">
 							{isOwnCard && (
 								<IconButton
 									className="absolute top-5 right-3"
@@ -236,7 +236,7 @@ export default function ProfileSection({ walletAddress }: { walletAddress: strin
 							/>
 						</div>
 					</div>
-					<hr className="my-4 w-full border-gray-700" />
+					<hr className="border-gray-700 my-4 w-full" />
 					<CouncilsCarousel />
 					<Button className="mx-auto my-8 mt-12" onClick={() => push('/councils')} size="lg">
 						{t('profiles.view-all-members')}

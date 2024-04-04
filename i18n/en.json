@@ -47,6 +47,7 @@
 		},
 		"cards": {
 			"spartan": "Spartan Council",
+			"grants": "Grants Council",
 			"ambassador": "Ambassador Council",
 			"treasury": "Treasury Council",
 			"cta": {
@@ -69,6 +70,7 @@
 		"tabs": {
 			"all": "All Council Members",
 			"sc": "Spartan Council",
+			"gc": "Grants Council",
 			"ac": "Ambassador Council",
 			"tc": "Treasury Council"
 		}
@@ -95,6 +97,7 @@
 		},
 		"tabs": {
 			"sc": "Spartan Council",
+			"gc": "Grants Council",
 			"ac": "Ambassador Council",
 			"tc": "Treasury Council",
 			"explanations": {
@@ -105,6 +108,14 @@
 					"stipends": "Stipends PM:",
 					"amount": "{{amount}} SNX",
 					"nextElection": "Next Spartan Election:"
+				},
+				"gc": {
+					"subline": "The Grants Council is a value-based Synthetix elected body whose ultimate goal is to fund beneficial and high-quality public goods projects through grants, initiative bounties, or competition prizes.",
+					"election": "Grants Election:",
+					"members": "{{count}} Members",
+					"stipends": "Stipends PM:",
+					"amount": "{{amount}} SNX",
+					"nextElection": "Next Grants Election:"
 				},
 				"ac": {
 					"subline": "The Ambassador Council actively promotes and advocates for the interests of Synthetix in the overall Ethereum (and DeFi) ecosystem.",
@@ -166,6 +177,7 @@
 
 		"councils": {
 			"sc": "Spartan Council",
+			"gc": "Grants Council",
 			"ac": "Ambassador Council",
 			"tc": "Treasury Council"
 		},
@@ -187,6 +199,7 @@
 			},
 			"tabs": {
 				"sc": "Spartan Council",
+				"gc": "Grants Council",
 				"ac": "Ambassador Council",
 				"tc": "Treasury Council"
 			},
@@ -210,6 +223,7 @@
 			"cta": "Nomination for {{council}} Council",
 			"checkboxes": {
 				"spartan": "Spartan Council",
+				"grants": "Grants Council",
 				"ambassador": "Ambassador Council",
 				"treasury": "Treasury Council",
 				"connect-wallet": "Connect Wallet"

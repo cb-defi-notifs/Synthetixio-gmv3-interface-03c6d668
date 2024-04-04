@@ -16,6 +16,7 @@ useRouterMock.mockImplementation(() => ({
 const translationMock = {
 	'landing-page.cards.cta.nomination': enJSON['landing-page'].cards.cta.nomination,
 	'landing-page.cards.spartan': enJSON['landing-page'].cards.spartan,
+	'landing-page.cards.grants': enJSON['landing-page'].cards.grants,
 	'landing-page.cards.ambassador': enJSON['landing-page'].cards.ambassador,
 	'landing-page.cards.treasury': enJSON['landing-page'].cards.treasury,
 	'landing-page.cards.candidates': enJSON['landing-page'].cards.candidates,
@@ -89,6 +90,11 @@ describe('Council Card component', () => {
 				<CouncilCard
 					council="spartan"
 					deployedModule={DeployedModules.SPARTAN_COUNCIL}
+					image="http://localhost:3000"
+				/>{' '}
+				<CouncilCard
+					council="grants"
+					deployedModule={DeployedModules.GRANTS_COUNCIL}
 					image="http://localhost:3000"
 				/>{' '}
 				<CouncilCard
