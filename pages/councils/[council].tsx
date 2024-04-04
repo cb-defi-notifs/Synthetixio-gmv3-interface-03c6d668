@@ -37,10 +37,6 @@ export default function CouncilNominees() {
 		DeployedModules.SPARTAN_COUNCIL,
 		walletAddress || ''
 	);
-	const isAlreadyNominatedForGrants = useIsNominated(
-		DeployedModules.GRANTS_COUNCIL,
-		walletAddress || ''
-	);
 	const isAlreadyNominatedForAmbassador = useIsNominated(
 		DeployedModules.AMBASSADOR_COUNCIL,
 		walletAddress || ''
@@ -52,7 +48,6 @@ export default function CouncilNominees() {
 
 	const isAlreadyNominated =
 		isAlreadyNominatedForSpartan.data ||
-		isAlreadyNominatedForGrants.data ||
 		isAlreadyNominatedForAmbassador.data ||
 		isAlreadyNominatedForTreasury.data;
 	const startIndex = activePage * PAGE_SIZE;
@@ -72,30 +67,32 @@ export default function CouncilNominees() {
 			</Head>
 			<Main>
 				<div className="container">
-					<div className="w-full relative p-10">
+					<div className="relative w-full p-10">
 						<BackButton />
 						<h1 className="tg-title-h1 text-center">
 							{t('councils.nominees', { council: capitalizeString(parsedQuery) })}
 						</h1>
 					</div>
-					<span className="tg-content text-gray-500 text-center block pt-[8px] mb-4 p-2">
+					<span className="tg-content mb-4 block p-2 pt-[8px] text-center text-gray-500">
 						{t('councils.subline')}
 					</span>
 					{nomineesQuery.isLoading && !nomineesQuery.data ? (
 						<Loader className="flex justify-center" />
 					) : !!nomineesQuery.data?.length ? (
 						<>
-							<div className="flex flex-wrap justify-center p-3 max-w-[1000px] w-full mx-auto">
-								{sortedNominees?.slice(startIndex, endIndex).map((walletAddress) => (
-									<MemberCard
-										className="m-2"
-										walletAddress={walletAddress}
-										key={walletAddress}
-										state="NOMINATION"
-										deployedModule={activeCouncil.module}
-										council={activeCouncil.name}
-									/>
-								))}
+							<div className="mx-auto flex w-full max-w-[1000px] flex-wrap justify-center p-3">
+								{sortedNominees
+									?.slice(startIndex, endIndex)
+									.map((walletAddress) => (
+										<MemberCard
+											className="m-2"
+											walletAddress={walletAddress}
+											key={walletAddress}
+											state="NOMINATION"
+											deployedModule={activeCouncil.module}
+											council={activeCouncil.name}
+										/>
+									))}
 							</div>
 							<div className="w-full">
 								<Pagination
