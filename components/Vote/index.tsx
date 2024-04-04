@@ -38,14 +38,12 @@ export default function VoteSection() {
 
 	const count = [
 		voteStatusQuery.data?.spartan.voted,
-		voteStatusQuery.data?.grants.voted,
 		voteStatusQuery.data?.ambassador.voted,
 		voteStatusQuery.data?.treasury.voted,
 	].filter((voted) => voted).length;
 
 	const hasVotedAll =
 		voteStatusQuery.data?.spartan.voted &&
-		voteStatusQuery.data?.grants.voted &&
 		voteStatusQuery.data?.ambassador.voted &&
 		voteStatusQuery.data?.treasury.voted;
 

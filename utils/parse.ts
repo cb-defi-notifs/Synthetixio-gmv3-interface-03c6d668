@@ -5,7 +5,7 @@ export const parseQuery = (
 ): {
 	index: number;
 	module: DeployedModules;
-	name: 'spartan' | 'grants' | 'ambassador' | 'treasury';
+	name: 'spartan' | 'ambassador' | 'treasury';
 } => {
 	switch (councilOrIndex) {
 		case 'spartan':
