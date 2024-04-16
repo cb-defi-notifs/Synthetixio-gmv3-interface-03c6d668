@@ -19,8 +19,6 @@ function useAllCouncilMembersQuery() {
 		async () => {
 			const spartanMembersPromise =
 				governanceModules[DeployedModules.SPARTAN_COUNCIL]?.contract.getCouncilMembers();
-			const grantsMembersPromise =
-				governanceModules[DeployedModules.GRANTS_COUNCIL]?.contract.getCouncilMembers();
 			const ambassadorMembersPromise =
 				governanceModules[DeployedModules.AMBASSADOR_COUNCIL]?.contract.getCouncilMembers();
 			const treasuryMembersPromise =
@@ -28,7 +26,6 @@ function useAllCouncilMembersQuery() {
 			const [spartanMembers, grantsMembers, ambassadorMembers, treasuryMembers]: string[][] =
 				await Promise.all([
 					spartanMembersPromise,
-					grantsMembersPromise,
 					ambassadorMembersPromise,
 					treasuryMembersPromise,
 				]);

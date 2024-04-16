@@ -7,7 +7,6 @@ function useGetMemberCouncilNameQuery(walletAddress: string) {
 	const governanceModules = useModulesContext();
 
 	const spartanQuery = useCouncilMembersQuery(DeployedModules.SPARTAN_COUNCIL);
-	const grantsQuery = useCouncilMembersQuery(DeployedModules.GRANTS_COUNCIL);
 	const ambassadorQuery = useCouncilMembersQuery(DeployedModules.AMBASSADOR_COUNCIL);
 	const treasuryQuery = useCouncilMembersQuery(DeployedModules.TREASURY_COUNCIL);
 
@@ -16,8 +15,6 @@ function useGetMemberCouncilNameQuery(walletAddress: string) {
 		async () => {
 			if (spartanQuery.data?.filter((member) => compareAddress(member, walletAddress)).length)
 				return 'Spartan';
-			if (grantsQuery.data?.filter((member) => compareAddress(member, walletAddress)).length)
-				return 'Grants';
 			if (ambassadorQuery.data?.filter((member) => compareAddress(member, walletAddress)).length)
 				return 'Ambassador';
 			if (treasuryQuery.data?.filter((member) => compareAddress(member, walletAddress)).length)
