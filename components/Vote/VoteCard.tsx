@@ -33,13 +33,7 @@ export const VoteCard: React.FC<Props> = ({ hasVoted, council, periodIsVoting, w
 
 	return hasVoted && userDetailsQuery.data ? (
 		<div className="bg-black md:max-w-[230px] p-2 w-full rounded border-2 border-solid border-gray-900 flex items-center justify-between relative">
-			<Avatar
-				walletAddress={userDetailsQuery.data.address}
-				url={userDetailsQuery.data.pfpThumbnailUrl}
-				width={33}
-				height={33}
-				scale={4}
-			/>
+			<Avatar walletAddress={userDetailsQuery.data.address} scale={4} />
 			<div className="flex flex-col">
 				<span className="tg-caption-bold text-primary">
 					{t(`vote.councils.${activeCouncil.abbreviation}`)}

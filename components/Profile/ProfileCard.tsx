@@ -11,7 +11,6 @@ import { truncateAddress } from 'utils/truncate-address';
 
 export interface ProfileCardProps {
 	className?: string;
-	pfpThumbnailUrl: string;
 	walletAddress: string;
 	discord: string;
 	github: string;
@@ -22,7 +21,6 @@ export interface ProfileCardProps {
 
 export const ProfileCard: React.FC<ProfileCardProps> = ({
 	className,
-	pfpThumbnailUrl,
 	walletAddress,
 	discord,
 	twitter,
@@ -34,7 +32,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
 	return (
 		<div className={clsx('bg-dark-blue border border-gray-800 w-full p-4 rounded-lg', className)}>
 			<div className="flex items-center flex-wrap gap-4">
-				<Avatar width={69} height={69} url={pfpThumbnailUrl} walletAddress={walletAddress} />
+				<Avatar walletAddress={walletAddress} />
 
 				{discord && (
 					<div className="flex flex-col m-2">
@@ -58,9 +56,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
 					</div>
 				)}
 
-				{deployedModule && walletAddress && (
-					<VoteHistory deployedModule={deployedModule} walletAddress={walletAddress} />
-				)}
+				{deployedModule && walletAddress && <VoteHistory />}
 			</div>
 			<hr className="border-gray-800 my-4" />
 
@@ -84,13 +80,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
 	);
 };
 
-const VoteHistory = ({
-	deployedModule,
-	walletAddress,
-}: {
-	deployedModule: DeployedModules;
-	walletAddress: string;
-}) => {
+const VoteHistory = () => {
 	const { t } = useTranslation();
 	return (
 		<div className="flex flex-col mx-5">

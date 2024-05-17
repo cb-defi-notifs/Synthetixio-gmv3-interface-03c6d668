@@ -38,14 +38,7 @@ export const UserDetails: React.FC<UserDetailsProps> = ({
 				passHref
 				className="tg-title-h5 ml-2 flex items-center capitalize hover:underline"
 			>
-				<Avatar
-					className="h-6 w-6"
-					scale={3}
-					width={26}
-					height={26}
-					walletAddress={member.address}
-					url={member.pfpThumbnailUrl}
-				/>
+				<Avatar className="h-6 w-6" scale={3} walletAddress={member.address} />
 				<span className="ml-2">{member.username || truncateAddress(member.address)}</span>
 			</Link>
 		</div>

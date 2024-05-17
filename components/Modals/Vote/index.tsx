@@ -181,14 +181,7 @@ export default function VoteModal({ member, deployedModule, council }: VoteModal
 		<BaseModal headline={t('modals.vote.headline', { council: capitalizeString(council) })}>
 			<div className="max-w-[500px] flex flex-col items-center px-2">
 				<span className="text-center tg-body text-gray-500 mt-2">{t('modals.vote.subline')}</span>
-				<Avatar
-					scale={12}
-					width={90}
-					height={90}
-					walletAddress={member.address}
-					url={member.pfpThumbnailUrl}
-					className="md:mt-10 mb-8 mt-8"
-				/>
+				<Avatar scale={12} walletAddress={member.address} className="md:mt-10 mb-8 mt-8" />
 				<h3 className="tg-title-h3 text-white md:pb-4">
 					{member.ens || truncateAddress(member.address)}
 				</h3>

@@ -43,17 +43,8 @@ export default function ProfileSection({ walletAddress }: { walletAddress: strin
 	})).filter((v) => v.nominated && v.period === 'NOMINATION');
 
 	if (userDetailsQuery.isSuccess && userDetailsQuery.data) {
-		const {
-			address,
-			pfpThumbnailUrl,
-			username,
-			ens,
-			about,
-			twitter,
-			discord,
-			delegationPitch,
-			github,
-		} = userDetailsQuery.data;
+		const { address, username, about, twitter, discord, delegationPitch, github } =
+			userDetailsQuery.data;
 
 		const calculatePercentage = () => {
 			const submissions = [delegationPitch, twitter, discord];
@@ -71,7 +62,7 @@ export default function ProfileSection({ walletAddress }: { walletAddress: strin
 						'bg-[url(/images/ring.svg)]': !isOwnCard,
 					})}
 				>
-					<Avatar scale={10} url={pfpThumbnailUrl} walletAddress={walletAddress} />
+					<Avatar scale={10} walletAddress={walletAddress} />
 					{councilMembersQuery.data && (
 						<Badge variant="success" className="tg-caption-sm mt-3 max-w-[150px] uppercase">
 							{t('profiles.council', { council: councilMembersQuery.data })}
@@ -226,7 +217,6 @@ export default function ProfileSection({ walletAddress }: { walletAddress: strin
 							)}
 
 							<ProfileCard
-								pfpThumbnailUrl={pfpThumbnailUrl}
 								walletAddress={walletAddress}
 								discord={discord}
 								github={github}

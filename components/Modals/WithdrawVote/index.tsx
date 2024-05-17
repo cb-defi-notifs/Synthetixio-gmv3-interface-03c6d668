@@ -74,14 +74,7 @@ export default function WithdrawVoteModal({ member, council, deployedModule }: W
 					<span className="tg-body p-2 text-gray-500 text-center">
 						{t('modals.withdraw-vote.subline')}
 					</span>
-					<Avatar
-						scale={12}
-						width={90}
-						height={90}
-						walletAddress={member.address}
-						url={member.pfpThumbnailUrl}
-						className="md:mt-14 mb-8 mt-10"
-					/>
+					<Avatar scale={12} walletAddress={member.address} className="md:mt-14 mb-8 mt-10" />
 					<div className="flex flex-col items-center border-gray-700 border rounded bg-black text-white mt-4 md:p-10 p-4 w-full">
 						<h5 className="tg-title-h5 mt-4 mb-2 mx-4">
 							{t('modals.withdraw-vote.voted-for', {
