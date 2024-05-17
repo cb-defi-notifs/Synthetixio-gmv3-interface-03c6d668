@@ -93,7 +93,7 @@ export default function MemberCard({
 		</>
 	) : (
 		<>
-			<Avatar walletAddress={member.address} url={member.pfpThumbnailUrl} />
+			<Avatar walletAddress={member.address} />
 			<div className="relative flex flex-col flex-1 ml-3">
 				<div
 					className={clsx('flex items-center', {
