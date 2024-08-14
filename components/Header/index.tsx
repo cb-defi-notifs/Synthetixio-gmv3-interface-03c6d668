@@ -5,11 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useCurrentPeriods } from 'queries/epochs/useCurrentPeriodQuery';
 import { Button } from '@synthetixio/ui';
 
-const routesDic = [
-	{ label: 'header.routes.home', link: '' },
-	{ label: 'header.routes.councils', link: 'councils' },
-	{ label: 'header.routes.vote', link: 'vote' },
-];
+const routesDic = [{ label: 'header.routes.home', link: '' }];
 
 export default function Header() {
 	const { asPath } = useRouter();
