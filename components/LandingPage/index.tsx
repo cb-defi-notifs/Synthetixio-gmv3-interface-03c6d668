@@ -1,7 +1,6 @@
-import { Button, ButtonCard } from '@synthetixio/ui';
+import { ButtonCard } from '@synthetixio/ui';
 import CouncilsCarousel from 'components/CouncilsCarousel';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
 import { CouncilCard } from 'components/CouncilCard';
 import { COUNCILS_DICTIONARY, SESSION_STORAGE_KEYS } from 'constants/config';
@@ -10,7 +9,6 @@ import { useEffect, useState } from 'react';
 
 export default function LandingPage() {
 	const { t } = useTranslation();
-	const { push } = useRouter();
 	const [mounted, setMounted] = useState(false);
 	const [terms, setTerms] = useState(false);
 
@@ -88,9 +86,6 @@ export default function LandingPage() {
 					{t('landing-page.tabs-subline')}
 				</span>
 				<CouncilsCarousel />
-				<Button onClick={() => push('/councils')} size="lg" className="m-10 mx-auto">
-					{t('landing-page.carousel-btn')}
-				</Button>
 			</div>
 		</>
 	);
