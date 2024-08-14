@@ -5,8 +5,6 @@ import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
 import { CouncilCard } from 'components/CouncilCard';
 import { COUNCILS_DICTIONARY, SESSION_STORAGE_KEYS } from 'constants/config';
-import { VoteResultBanner } from 'components/VoteResultBanner';
-import { NominateInVotingBanner } from 'components/NominateInVotingBanner';
 import { TermsModal } from 'components/Modals/TermsModal';
 import { useEffect, useState } from 'react';
 
@@ -43,8 +41,6 @@ export default function LandingPage() {
 								/>
 							))}
 						</div>
-						<VoteResultBanner />
-						<NominateInVotingBanner />
 					</div>
 				</div>
 				<h1 className="tg-title-h1 text-center pt-8">{t('landing-page.second-headline')}</h1>
