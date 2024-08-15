@@ -20,7 +20,20 @@ const Home: NextPage = () => {
 				<title>Synthetix | Governance V3</title>
 			</Head>
 			<Main>
-				<LandingPage />
+				<div
+					style={{
+						color: 'black',
+						fontWeight: 700,
+						textAlign: 'center',
+						fontSize: '20px',
+
+						width: '100vw',
+						paddingTop: '50vh',
+					}}
+				>
+					🚧!!! Synthetix is in the process of migrating to V3 Governance on Synthetix Chain. This
+					webpage will soon be redirected to a new governance UI !!!🚧
+				</div>
 			</Main>
 		</>
 	);

@@ -13,18 +13,6 @@ export default class MyDocument extends Document {
 					<link rel="manifest" href="/manifest.json" />
 				</Head>
 				<body>
-					<div
-						className="bg-orange"
-						style={{
-							color: 'black',
-							fontWeight: 700,
-							textAlign: 'center',
-							fontSize: '20px',
-						}}
-					>
-						!!! Synthetix is in the process of migrating to V3 Governance on Synthetix Chain. This
-						webpage will soon be redirected to a new governance UI !!!
-					</div>
 					<Main />
 					<NextScript />
 				</body>
