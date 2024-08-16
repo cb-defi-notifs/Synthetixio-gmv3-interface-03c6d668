@@ -3,42 +3,15 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useCurrentPeriods } from 'queries/epochs/useCurrentPeriodQuery';
-import { Button, Dropdown } from '@synthetixio/ui';
-import { useConnectorContext } from 'containers/Connector';
-import { truncateAddress } from 'utils/truncate-address';
-import { ConnectButton } from 'components/ConnectButton';
-import { useSafeAppsSDK } from '@gnosis.pm/safe-apps-react-sdk';
-import {
-	ModalBody,
-	ModalCloseButton,
-	ModalContent,
-	ModalHeader,
-	ModalOverlay,
-	useDisclosure,
-	Modal,
-	Box,
-	Text,
-	Button as ChakraButton,
-	Image,
-	Flex,
-	Divider,
-	Heading,
-} from '@chakra-ui/react';
+import { Button } from '@synthetixio/ui';
 
-const routesDic = [
-	{ label: 'header.routes.home', link: '' },
-	{ label: 'header.routes.councils', link: 'councils' },
-	{ label: 'header.routes.vote', link: 'vote' },
-];
+const routesDic = [{ label: 'header.routes.home', link: '' }];
 
 export default function Header() {
-	const { asPath, push } = useRouter();
+	const { asPath } = useRouter();
 	const { t } = useTranslation();
-	const { ensName, walletAddress, disconnectWallet, isWalletConnected } = useConnectorContext();
 	const [burgerMenuOpen, setBurgerMenuOpen] = useState(false);
 	const periodsData = useCurrentPeriods();
-	const { connected } = useSafeAppsSDK();
-	const { isOpen, onClose, onOpen } = useDisclosure();
 
 	useEffect(() => {
 		if (burgerMenuOpen) {
@@ -53,7 +26,7 @@ export default function Header() {
 	const routes = routesDic.filter((route) => oneCouncilIsInVotingPeriod || route.link !== 'vote');
 	return (
 		<header
-			className={`bg-dark-blue w-full m-h-[66px] p-3 flex 
+			className={`bg-dark-blue w-full m-h-[66px] p-3 flex
 				items-center md:justify-center justify-between border-b-gray-800 border-b border-b-solid`}
 		>
 			<Link href="/" passHref legacyBehavior>
@@ -147,99 +120,6 @@ export default function Header() {
 					</div>
 				</div>
 			)}
-			<ChakraButton
-				variant="outline"
-				onClick={() => {
-					if (!connected) {
-						onOpen();
-					}
-				}}
-				minW={connected ? '150px' : '70px'}
-			>
-				{connected ? 'Safe Connected' : 'Safe'}
-			</ChakraButton>
-			<Modal isOpen={isOpen} onClose={onClose}>
-				<ModalOverlay />
-				<ModalContent bg="navy.900" borderColor="gray.900" borderWidth="1px" borderStyle="solid">
-					<ModalHeader>
-						<Heading fontSize={'2xl'} color="white" textAlign={'center'} mt="8">
-							Connect to Safe
-						</Heading>
-					</ModalHeader>
-					<ModalCloseButton color="white" />
-					<ModalBody>
-						<Box
-							m="4"
-							p="4"
-							borderRadius="base"
-							borderWidth="1px"
-							borderStyle="solid"
-							display="flex"
-							flexDirection="column"
-							alignItems="center"
-						>
-							<Image
-								src="/images/Connecting-to-Safe-Wallet.png"
-								alt="image with text connecting to safe wallet"
-								onClick={() =>
-									window.open(
-										'https://docs.synthetix.io/dao/elections-and-voting/voting-with-a-gnosis-safe',
-										'_blank'
-									)
-								}
-								cursor="pointer"
-							/>
-							<Text color="gray.500" fontWeight="400" mt="2">
-								This blog post will provide a detailed guide on how to connect your Safe Wallet
-								wallet to Synthetix Governance.
-							</Text>
-						</Box>
-						<Flex m="4" flexDirection="column" alignItems="center">
-							<Divider w="100%" mb="16px" />
-							<ChakraButton
-								variant="solid"
-								w="100%"
-								onClick={() =>
-									window.open(
-										'https://docs.synthetix.io/dao/elections-and-voting/voting-with-a-gnosis-safe',
-										'_blank'
-									)
-								}
-							>
-								View Tutorial
-							</ChakraButton>
-						</Flex>
-					</ModalBody>
-				</ModalContent>
-			</Modal>
-			<div className="flex md:mr-1 h-[40px] justify-end ml-[16px]">
-				{!isWalletConnected && <ConnectButton />}
-				{isWalletConnected && walletAddress && (
-					<Dropdown
-						triggerElement={
-							<Button className="min-w-[142px]" variant="secondary">
-								{ensName || truncateAddress(walletAddress)}
-							</Button>
-						}
-						contentClassName="bg-navy-dark-1 flex flex-col dropdown-border overflow-hidden"
-						triggerElementProps={({ isOpen }: any) => ({ isActive: isOpen })}
-						contentAlignment="right"
-					>
-						<span
-							className="p-3 hover:bg-navy text-primary cursor-pointer"
-							onClick={() => push('/profile/' + walletAddress)}
-						>
-							{t('header.view-profile')}
-						</span>
-						<span
-							className="p-3 hover:bg-navy text-primary cursor-pointer"
-							onClick={disconnectWallet}
-						>
-							{t('header.disconnect-wallet')}
-						</span>
-					</Dropdown>
-				)}
-			</div>
 		</header>
 	);
 }
