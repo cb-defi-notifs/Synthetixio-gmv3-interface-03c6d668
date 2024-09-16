@@ -66,7 +66,7 @@ export default function MemberCard({
 
 	const content = !listView ? (
 		<>
-			<Avatar width={56} height={56} walletAddress={member.address} url={member.pfpThumbnailUrl} />
+			<Avatar walletAddress={member.address} />
 			{council && (
 				<Badge variant="blue" className="mt-2 uppercase">
 					{t('profiles.council', { council })}
@@ -93,7 +93,7 @@ export default function MemberCard({
 		</>
 	) : (
 		<>
-			<Avatar width={40} height={40} walletAddress={member.address} url={member.pfpThumbnailUrl} />
+			<Avatar walletAddress={member.address} />
 			<div className="relative flex flex-col flex-1 ml-3">
 				<div
 					className={clsx('flex items-center', {

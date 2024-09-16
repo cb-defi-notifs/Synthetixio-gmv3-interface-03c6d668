@@ -1,6 +1,4 @@
 import { Button } from '@synthetixio/ui';
-import NominateModal from 'components/Modals/Nominate';
-import { useModalContext } from 'containers/Modal';
 import { DeployedModules } from 'containers/Modules';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -8,9 +6,7 @@ import { EpochPeriods } from 'queries/epochs/useCurrentPeriodQuery';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { parseCouncil } from 'utils/parse';
-import { Timer } from 'components/Timer';
 import useCouncilCardQueries from 'hooks/useCouncilCardQueries';
-import { useVotingCount } from 'queries/voting/useVotingCount';
 
 interface CouncilCardProps {
 	council: string;
@@ -21,12 +17,8 @@ interface CouncilCardProps {
 export const CouncilCard: React.FC<CouncilCardProps> = ({ council, deployedModule, image }) => {
 	const { t } = useTranslation();
 	const { push } = useRouter();
-	const { setContent, setIsOpen } = useModalContext();
-	const { councilMembers, currentPeriodData, nominationDates, nominees, votingDates } =
-		useCouncilCardQueries(deployedModule);
-	const voteCount = useVotingCount(deployedModule, true);
+	const { councilMembers, currentPeriodData } = useCouncilCardQueries(deployedModule);
 	const membersCount = councilMembers?.length;
-	const nomineesCount = nominees?.length;
 	const period = currentPeriodData?.currentPeriod;
 
 	const councilInfo = period ? parseCouncil(EpochPeriods[period]) : null;
@@ -54,38 +46,19 @@ export const CouncilCard: React.FC<CouncilCardProps> = ({ council, deployedModul
 					className={`${color} p-2 rounded-full tg-caption-bold text-center my-2 w-fit self-center`}
 					data-testid="cta-text"
 				>
-					{t(cta)}
+					CLOSED - COUNCIL ELECTED
 				</span>
-				{period === 'NOMINATION' && nominationDates?.nominationPeriodEndDate && (
-					<Timer
-						className="text-orange tg-body-bold mx-auto"
-						expiryTimestamp={nominationDates?.nominationPeriodEndDate}
-						data-testid="nomination-timer"
-					/>
-				)}
-				{period === 'VOTING' && votingDates?.votingPeriodEndDate && (
-					<Timer
-						className="text-green tg-body-bold mx-auto"
-						expiryTimestamp={votingDates.votingPeriodEndDate}
-						data-testid="voting-timer"
-					/>
-				)}
 				<span className="ui-gradient-purple h-[1px] w-full mb-1"></span>
 				<div className="flex justify-between">
 					<span className="tg-caption text-gray-500" data-testid="headline-left">
 						{t(headlineLeft)}
 					</span>
-					<span className="tg-caption text-gray-500" data-testid="headline-right">
-						{t(headlineRight)}
-					</span>
 				</div>
 				<div className="flex justify-between">
 					<h4 className="text-2xl council-card-numbers gt-america-condensed-bold-font">
-						{period === 'NOMINATION' || period === 'VOTING' ? nomineesCount : membersCount}
+						{membersCount}
 					</h4>
-					<h4 className="text-2xl council-card-numbers gt-america-condensed-bold-font">
-						{voteCount.data || ''}
-					</h4>
+					<h4 className="text-2xl council-card-numbers gt-america-condensed-bold-font"></h4>
 				</div>
 				{secondButton && (
 					<span
@@ -99,37 +72,11 @@ export const CouncilCard: React.FC<CouncilCardProps> = ({ council, deployedModul
 					variant={variant}
 					className="w-full mt-4"
 					size="lg"
-					onClick={() => {
-						if (period === 'NOMINATION') {
-							setContent(<NominateModal />);
-							setIsOpen(true);
-						} else if (period === 'VOTING') {
-							push(`/vote/${council}`);
-						} else if (period === 'EVALUATION') {
-							push('/councils/' + council);
-						} else {
-							push({ pathname: '/councils' });
-						}
-					}}
 					data-testid="card-button"
+					disabled={true}
 				>
 					{t(button)}
 				</Button>
-
-				{period === 'VOTING' && (
-					<Button
-						variant="outline"
-						className="w-full mt-2"
-						size="lg"
-						onClick={() => {
-							setContent(<NominateModal />);
-							setIsOpen(true);
-						}}
-						data-testid="voting-button"
-					>
-						Nominate
-					</Button>
-				)}
 			</div>
 		</div>
 	);

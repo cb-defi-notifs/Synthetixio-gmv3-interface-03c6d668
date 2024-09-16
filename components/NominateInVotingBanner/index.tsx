@@ -21,10 +21,6 @@ export const NominateInVotingBanner: React.FC = () => {
 		DeployedModules.SPARTAN_COUNCIL,
 		walletAddress || ''
 	);
-	const isAlreadyNominatedForGrants = useIsNominated(
-		DeployedModules.GRANTS_COUNCIL,
-		walletAddress || ''
-	);
 	const isAlreadyNominatedForAmbassador = useIsNominated(
 		DeployedModules.AMBASSADOR_COUNCIL,
 		walletAddress || ''
@@ -35,17 +31,16 @@ export const NominateInVotingBanner: React.FC = () => {
 	);
 	const isAlreadyNominated =
 		isAlreadyNominatedForSpartan.data ||
-		isAlreadyNominatedForGrants.data ||
 		isAlreadyNominatedForAmbassador.data ||
 		isAlreadyNominatedForTreasury.data;
 
 	if (periodsData.find((periodData) => periodData.data?.currentPeriod !== 'VOTING')) return null;
 
 	return (
-		<div className="w-full p-0.5 bg-orange rounded mx-auto mt-4">
-			<div className="flex md:flex-row flex-col gap-2 items-center justify-between w-full h-full darker-60 p-5">
-				<div className="flex md:flex-row flex-col gap-2 items-center">
-					<div className="bg-dark-blue rounded-full h-12 w-12 flex items-center justify-center md:mr-4">
+		<div className="mx-auto mt-4 w-full rounded bg-orange p-0.5">
+			<div className="darker-60 flex h-full w-full flex-col items-center justify-between gap-2 p-5 md:flex-row">
+				<div className="flex flex-col items-center gap-2 md:flex-row">
+					<div className="flex h-12 w-12 items-center justify-center rounded-full bg-dark-blue md:mr-4">
 						<SNXIcon />
 					</div>
 					<div className="text-center md:text-left">

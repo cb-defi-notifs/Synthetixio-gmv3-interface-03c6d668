@@ -38,28 +38,26 @@ export default function VoteSection() {
 
 	const count = [
 		voteStatusQuery.data?.spartan.voted,
-		voteStatusQuery.data?.grants.voted,
 		voteStatusQuery.data?.ambassador.voted,
 		voteStatusQuery.data?.treasury.voted,
 	].filter((voted) => voted).length;
 
 	const hasVotedAll =
 		voteStatusQuery.data?.spartan.voted &&
-		voteStatusQuery.data?.grants.voted &&
 		voteStatusQuery.data?.ambassador.voted &&
 		voteStatusQuery.data?.treasury.voted;
 
 	return (
-		<div className="flex flex-col items-center w-full container">
-			<div className="relative w-full m-4 mt-8">
+		<div className="container flex w-full flex-col items-center">
+			<div className="relative m-4 mt-8 w-full">
 				<BackButton />
 				<h1 className="tg-title-h1 text-center">{t('vote.headline')}</h1>
 			</div>
 			<span className="tg-body pb-8 text-center text-gray-500">{t('vote.subline')}</span>
 			{!!activeCouncilInVoting && (
-				<div className="max-w-[1000px] w-full p-4 rounded bg-dark-blue flex flex-wrap items-center">
+				<div className="flex w-full max-w-[1000px] flex-wrap items-center rounded bg-dark-blue p-4">
 					<div className="flex w-fit">
-						<div className="pb-2 ml-2">
+						<div className="ml-2 pb-2">
 							<h3 className="md:tg-title-h3 tg-title-h4 pt-4">
 								{t(`vote.vote-status-${hasVotedAll ? 'complete' : 'incomplete'}`, {
 									progress: count,
@@ -71,7 +69,7 @@ export default function VoteSection() {
 							</span>
 						</div>
 					</div>
-					<div className="flex justify-between flex-wrap w-full">
+					<div className="flex w-full flex-wrap justify-between">
 						<VoteCard
 							walletAddress={voteStatusQuery.data?.spartan.candidateAddress}
 							hasVoted={!!voteStatusQuery.data?.spartan.voted}
@@ -80,15 +78,6 @@ export default function VoteSection() {
 									?.currentPeriod === 'VOTING'
 							}
 							council={DeployedModules.SPARTAN_COUNCIL}
-						/>
-						<VoteCard
-							walletAddress={voteStatusQuery.data?.grants.candidateAddress}
-							hasVoted={!!voteStatusQuery.data?.grants.voted}
-							periodIsVoting={
-								periodsData.find((period) => period.data?.council === 'grants')?.data
-									?.currentPeriod === 'VOTING'
-							}
-							council={DeployedModules.GRANTS_COUNCIL}
 						/>
 						<VoteCard
 							walletAddress={voteStatusQuery.data?.ambassador.candidateAddress}
@@ -111,7 +100,7 @@ export default function VoteSection() {
 					</div>
 				</div>
 			)}
-			<div className="flex justify-center w-full flex-wrap mt-10 gap-2">
+			<div className="mt-10 flex w-full flex-wrap justify-center gap-2">
 				{COUNCILS_DICTIONARY.map((council) => (
 					<CouncilCard
 						key={council.slug}

@@ -25,16 +25,11 @@ export default function NominateModal() {
 	const queryClient = useQueryClient();
 
 	const nominateForSpartanCouncil = useNominateMutation(DeployedModules.SPARTAN_COUNCIL);
-	const nominateForGrantsCouncil = useNominateMutation(DeployedModules.GRANTS_COUNCIL);
 	const nominateForAmbassadorCouncil = useNominateMutation(DeployedModules.AMBASSADOR_COUNCIL);
 	const nominateForTreasuryCouncil = useNominateMutation(DeployedModules.TREASURY_COUNCIL);
 
 	const isAlreadyNominatedForSpartan = useIsNominated(
 		DeployedModules.SPARTAN_COUNCIL,
-		walletAddress || ''
-	);
-	const isAlreadyNominatedForGrants = useIsNominated(
-		DeployedModules.GRANTS_COUNCIL,
 		walletAddress || ''
 	);
 	const isAlreadyNominatedForAmbassador = useIsNominated(
@@ -47,7 +42,6 @@ export default function NominateModal() {
 	);
 	const isAlreadyNominated =
 		isAlreadyNominatedForSpartan.data ||
-		isAlreadyNominatedForGrants.data ||
 		isAlreadyNominatedForAmbassador.data ||
 		isAlreadyNominatedForTreasury.data;
 
@@ -98,11 +92,6 @@ export default function NominateModal() {
 					const spartanTx = await nominateForSpartanCouncil.mutateAsync();
 					setTxHash(spartanTx.hash);
 					break;
-				case 'grants':
-					setContent(setCTA('Grants'));
-					const grantsTx = await nominateForGrantsCouncil.mutateAsync();
-					setTxHash(grantsTx.hash);
-					break;
 				case 'ambassador':
 					setContent(setCTA('Ambassador'));
 					const ambassadorTx = await nominateForAmbassadorCouncil.mutateAsync();
@@ -127,17 +116,17 @@ export default function NominateModal() {
 			{!isWalletConnected ? (
 				<ConnectButton />
 			) : (
-				<div className="px-2 flex flex-col items-center max-w-[700px]">
-					<span className="tg-content text-gray-500 py-2 text-center">
+				<div className="flex max-w-[700px] flex-col items-center px-2">
+					<span className="tg-content py-2 text-center text-gray-500">
 						{t('modals.nomination.subline')}
 					</span>
-					<div className="flex flex-col items-center bg-black px-12 py-8 rounded mt-4">
-						<h5 className="tg-title-h5 text-gray-300 mb-1">
+					<div className="mt-4 flex flex-col items-center rounded bg-black px-12 py-8">
+						<h5 className="tg-title-h5 mb-1 text-gray-300">
 							{t('modals.nomination.nominationAddress')}
 						</h5>
-						<h3 className="text-white tg-title-h3">{ensName || truncateAddress(walletAddress!)}</h3>
+						<h3 className="tg-title-h3 text-white">{ensName || truncateAddress(walletAddress!)}</h3>
 					</div>
-					<div className="flex justify-center flex-col md:flex-row gap-4 m-10 max-w-[190px] w-full md:max-w-none">
+					<div className="m-10 flex w-full max-w-[190px] flex-col justify-center gap-4 md:max-w-none md:flex-row">
 						{COUNCILS_DICTIONARY.map((council) => (
 							<Checkbox
 								key={`${council.slug}-council-checkbox`}

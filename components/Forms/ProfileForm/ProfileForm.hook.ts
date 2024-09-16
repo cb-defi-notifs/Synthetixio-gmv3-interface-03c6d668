@@ -20,7 +20,6 @@ export const useForm = (userProfile: GetUserDetails | undefined) => {
 		twitter: yup.string(),
 		discord: yup.string(),
 		github: yup.string(),
-		pfpThumbnailUrl: yup.string(),
 		website: yup.string(),
 	});
 
@@ -33,7 +32,6 @@ export const useForm = (userProfile: GetUserDetails | undefined) => {
 			discord: userProfile?.discord || '',
 			github: userProfile?.github || '',
 			username: userProfile?.username || '',
-			pfpThumbnailUrl: userProfile?.pfpThumbnailUrl || '',
 			website: userProfile?.website || '',
 		},
 		validationSchema,
@@ -79,9 +77,6 @@ export const useForm = (userProfile: GetUserDetails | undefined) => {
 			},
 			username: {
 				error: formik.touched.username && formik.errors.username,
-			},
-			pfpThumbnailUrl: {
-				error: formik.touched.pfpThumbnailUrl && formik.errors.pfpThumbnailUrl,
 			},
 			website: {
 				error: formik.touched.website && formik.errors.website,
